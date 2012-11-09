@@ -29,6 +29,8 @@ int main(int argc, char* argv[])
 				}
 				cout << "\n";
 			}
+		} else if (tool == "Optimise") {
+
 		} else {
 			cerr << "Unknown tool!\n";
 		}
