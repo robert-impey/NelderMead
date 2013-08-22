@@ -4,4 +4,6 @@ ipch
 *.suo
 *.sdf
 *.user
-
+_UpgradeReport_Files
+UpgradeLog.htm
+UpgradeLog.XML
