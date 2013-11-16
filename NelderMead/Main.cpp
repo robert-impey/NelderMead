@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
+
 #include "InputPoint.h"
+#include "Functions.h"
 
 using namespace std;
-
-double f(InputPoint);
 
 int main(int argc, char* argv[])
 {
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 			for (double x = xMin; x <= xMax; x += xStep) {
 				for (double y = yMin; y <= yMax; y += yStep) {
 					auto iP = InputPoint(x, y);
-					cout << f(iP) << ",";
+					cout << f_1_1(iP) << ",";
 				}
 				cout << endl;
 			}
@@ -36,21 +36,16 @@ int main(int argc, char* argv[])
 			for (double x = xMin; x <= xMax; x += xStep) {
 				for (double y = yMin; y <= yMax; y += yStep) {
 					auto candidate = InputPoint(x, y);
-					if (f(candidate) < f(min)) {
+					if (f_1_1(candidate) < f_1_1(min)) {
 						min = candidate;
 					}
 				}
 			}
-			cout << "Minimum found: f(" << min.GetX() << ", " << min.GetY() << ") = " << f(min) << endl; 
+			cout << "Minimum found: f_1_1(" << min.GetX() << ", " << min.GetY() << ") = " << f_1_1(min) << endl; 
 		} else {
 			cerr << "Unknown tool!\n";
 		}
 	}
 
 	return 0;
-}
-
-double f(InputPoint iP)
-{
-	return (iP.GetX() * sin(4 * iP.GetX())) + (1.1 * iP.GetY() * sin (2 * iP.GetY()));
 }
