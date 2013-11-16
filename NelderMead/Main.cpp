@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 				for (double y = yMin; y <= yMax; y += yStep) {
 					cout << f(x, y) << ",";
 				}
-				cout << "\n";
+				cout << endl;
 			}
 		} else if (tool == "Optimise") {
 
