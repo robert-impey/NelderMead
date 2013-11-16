@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
+#include "InputPoint.h"
 
 using namespace std;
 
-double f(double, double);
+double f(InputPoint);
 
 int main(int argc, char* argv[])
 {
@@ -12,25 +13,35 @@ int main(int argc, char* argv[])
 	} else {
 		string tool = argv[1];
 
+		const double xMin = 0;
+		const double xMax = 10;
+		const double yMin = 0;
+		const double yMax = 10;
+
+		const double xStep = 0.01;
+		const double yStep = 0.01;
+
 		if (tool == "Print") {
 			string tool = argv[1];
 
-			const double xMin = 0;
-			const double xMax = 10;
-			const double yMin = 0;
-			const double yMax = 10;
-	
-			const double xStep = 0.1;
-			const double yStep = 0.1;
-
 			for (double x = xMin; x <= xMax; x += xStep) {
 				for (double y = yMin; y <= yMax; y += yStep) {
-					cout << f(x, y) << ",";
+					auto iP = InputPoint(x, y);
+					cout << f(iP) << ",";
 				}
 				cout << endl;
 			}
-		} else if (tool == "Optimise") {
-
+		} else if (tool == "Exhaustive") {
+			auto min = InputPoint(xMin, yMin);
+			for (double x = xMin; x <= xMax; x += xStep) {
+				for (double y = yMin; y <= yMax; y += yStep) {
+					auto candidate = InputPoint(x, y);
+					if (f(candidate) < f(min)) {
+						min = candidate;
+					}
+				}
+			}
+			cout << "Minimum found: f(" << min.GetX() << ", " << min.GetY() << ") = " << f(min) << endl; 
 		} else {
 			cerr << "Unknown tool!\n";
 		}
@@ -39,7 +50,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-double f(double x, double y)
+double f(InputPoint iP)
 {
-	return (x * sin(4 * x)) + (1.1 * y * sin (2 * y));
+	return (iP.GetX() * sin(4 * iP.GetX())) + (1.1 * iP.GetY() * sin (2 * iP.GetY()));
 }
